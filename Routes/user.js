@@ -1,7 +1,32 @@
-import express from 'express'
-import { users } from '../constant/data.js';
+import express from "express";
+import { users } from "../constant/data.js";
+import multer from "multer";
+import fs from "fs-extra";
 
 const router = express.Router();
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./images/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+router.post("/upload", upload.single("image"), function (req, res, next) {
+  // req.file is the `avatar` file
+  // req.body will hold the text fields, if there were any
+  res.send({ msg: "file uploaded..." });
+});
+
+router.delete("/delete-image", (req, res) => {
+  const { fileName } = req.body;
+  const fg = fs.removeSync(`./images/${fileName}`);
+  res.send({ msg: "File deleted successfully..." });
+});
 
 router.get("/", (req, res) => {
   try {
