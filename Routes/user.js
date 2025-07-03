@@ -2,6 +2,7 @@ import express from "express";
 import { users } from "../constant/data.js";
 import multer from "multer";
 import fs from "fs-extra";
+import Users from "../Schema/user.js";
 
 const router = express.Router();
 
@@ -36,9 +37,14 @@ router.get("/", (req, res) => {
   }
 });
 
-router.post("/", (req, res) => {
-  users.push({ id: users.length + 1, ...req.body });
-  return res.send({ status: 200, message: "Data added succesfully" });
+router.post("/", async (req, res) => {
+  try {
+    const user = new Users({ ...req.body });
+    await user.save();
+    return res.send({ status: 200, message: "user register successfully" });
+  } catch (err) {
+    return res.status(500).send({ status: 500, message: err.message });
+  }
 });
 
 router.delete("/:id", (req, res) => {
