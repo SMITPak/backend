@@ -1,8 +1,9 @@
 import express from "express";
-import { users } from "../constant/data.js";
 import multer from "multer";
 import fs from "fs-extra";
-import Users from "../Schema/user.js";
+import bcrypt from "bcrypt";
+import User from "../Schema/user.js";
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
@@ -39,9 +40,34 @@ router.get("/", (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const user = new Users({ ...req.body });
+    const password = await bcrypt.hash(req.body.password, 10);
+    const user = new User({ ...req.body, password });
     await user.save();
-    return res.send({ status: 200, message: "user register successfully" });
+    return res
+      .status(200)
+      .send({ status: 200, message: "user added successfully" });
+  } catch (err) {
+    return res.status(500).send({ status: 500, message: err.message });
+  }
+});
+
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email }).then((res) => res.toObject());
+    if (!user) {
+      return res.status(404).send({ status: 404, message: "user not found" });
+    }
+    const validate = await bcrypt.compare(password, user.password);
+    if (!validate) {
+      return res.status(401).send({ status: 401, message: "Invalid password" });
+    }
+    delete user.password;
+    var token = jwt.sign(
+      { email: user.email, id: user._id },
+      process.env.JWT_SECRET
+    );
+    return res.status(200).send({ status: 200, user, token });
   } catch (err) {
     return res.status(500).send({ status: 500, message: err.message });
   }

@@ -13,15 +13,7 @@ app.use("/images", express.static("images/"));
 
 app.use(cors());
 
-app.use((req, res, next) => {
-  const { key } = req?.query;
-  if (key == 123) {
-    next();
-  }
-  else{
-    res.status(404).send({ status: 404,  message: 'You are not authorized user'})
-  }
-});
+
 
 const db = mongoose.connection;
 
