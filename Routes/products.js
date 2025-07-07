@@ -1,14 +1,26 @@
 import express from "express";
-import { products } from "../constant/data.js";
+import Products from "../Schema/product.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   try {
+    const filters = req.query;
+    const products = await Products.find(filters);
     return res.status(200).send({ status: 200, products });
   } catch (err) {
     return res.status(500).send({ status: 500, message: err.message });
   }
 });
 
-export default router
+router.get("/:find", async (req, res) => {
+  try {
+    const { find } = req.params;
+    const products = await Products.distinct(find);
+    return res.status(200).send({ status: 200, products });
+  } catch (err) {
+    return res.status(500).send({ status: 500, message: err.message });
+  }
+});
+
+export default router;
