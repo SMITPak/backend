@@ -6,7 +6,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const { limit = 10, page = 1, ...filters } = req.query;
-    const totalRecord = await Products.countDocuments();
+    const totalRecord = await Products.countDocuments(filters);
     const skipData = (page - 1) * parseInt(limit);
     const products = await Products.find(filters).skip(skipData).limit(parseInt(limit));
 
