@@ -3,7 +3,7 @@ import multer from "multer";
 import fs from "fs-extra";
 import bcrypt from "bcrypt";
 import User from "../Schema/user.js";
-import jwt from "jsonwebtoken";
+import { GenerateToken } from "../Services/genearteTokens.js";
 
 const router = express.Router();
 
@@ -54,7 +54,7 @@ router.post("/", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email }).then((res) => res.toObject());
+    const user = await User.findOne({ email }).then((res) => res?.toObject());
     if (!user) {
       return res.status(404).send({ status: 404, message: "user not found" });
     }
@@ -63,11 +63,9 @@ router.post("/login", async (req, res) => {
       return res.status(401).send({ status: 401, message: "Invalid password" });
     }
     delete user.password;
-    var token = jwt.sign(
-      { email: user.email, id: user._id },
-      process.env.JWT_SECRET
-    );
-    return res.status(200).send({ status: 200, user, token });
+    var token = await GenerateToken(user._id, user.email)
+
+    return res.status(200).send({ status: 200, user, ...token });
   } catch (err) {
     return res.status(500).send({ status: 500, message: err.message });
   }
