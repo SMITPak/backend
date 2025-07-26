@@ -1,0 +1,59 @@
+1. User Access
+Guest users can:
+
+Search for flights
+
+View flight details, prices, and availability
+
+Register or log in to book
+
+Registered users can:
+
+Book flights and make payments
+
+Manage bookings (view, cancel, reschedule)
+
+Receive booking confirmations and alerts
+
+Manage profile and saved passenger details
+
+View trip history
+
+2. Flight Search & Filters
+Search by:
+
+Trip type (one-way, round-trip, multi-city)
+
+Origin & destination
+
+Dates and number of passengers
+
+Travel class (Economy, Business, First)
+
+Filter and sort by:
+
+Price, airline, stops, duration, times
+
+3. Booking Process
+Select flight(s)
+
+Enter passenger details
+
+Choose seat (optional)
+
+Add extras (baggage, meals, insurance)
+
+Apply promo codes (if any)
+
+Make payment (card, UPI, wallet, etc.)
+
+Receive confirmation (email/SMS with PNR and e-ticket)
+
+4. Booking Management
+View or download ticket and invoice
+
+Modify or cancel booking (if allowed)
+
+Track refunds or flight status
+
+Rebook or reschedule

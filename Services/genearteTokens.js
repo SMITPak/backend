@@ -1,4 +1,4 @@
-import Token from "../Schema/refreshToken.js";
+import Token from "../model/refreshToken.js";
 import { convertToSeconds } from "./convertToSec.js";
 import jwt from "jsonwebtoken";
 

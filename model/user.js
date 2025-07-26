@@ -17,6 +17,9 @@ const userSchema = new Schema({
   },
   phoneNo: {
     type: Schema.Types.Number
+  },
+  otp: {
+    type: Schema.Types.Number
   }
 });
 

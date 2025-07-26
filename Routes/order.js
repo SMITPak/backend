@@ -1,7 +1,6 @@
 import express from "express";
 import { Middleware } from "../config/middleware.js";
-import Orders from "../Schema/order.js";
-import mongoose from "mongoose";
+import Orders from "../Model/order.js";
 
 const router = express.Router();
 

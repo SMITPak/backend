@@ -7,6 +7,7 @@ export const Middleware = (req, res, next) => {
     try {
       var decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.userId = decoded.id;
+      req.email = decoded.email
       req.objectUserId = new mongoose.Types.ObjectId(decoded.id)
       next();
     } catch (err) {
