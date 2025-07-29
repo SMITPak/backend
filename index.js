@@ -25,8 +25,8 @@ db.once("open", function () {
 
 app.use("/api", router);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is running on ${PORT}`);
+// });
 
-export default app
+export default app;
