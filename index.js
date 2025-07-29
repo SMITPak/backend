@@ -13,8 +13,6 @@ app.use("/images", express.static("images/"));
 
 app.use(cors());
 
-
-
 const db = mongoose.connection;
 
 db.on("error", (error) => {
@@ -31,3 +29,4 @@ app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
 });
 
+export default app
