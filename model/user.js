@@ -16,13 +16,18 @@ const userSchema = new Schema({
     required: true,
   },
   phoneNo: {
-    type: Schema.Types.Number
+    type: Schema.Types.Number,
   },
   otp: {
-    type: Schema.Types.Number
-  }
+    type: Schema.Types.Number,
+  },
+  role: {
+    type: Schema.Types.String,
+    required: true,
+    default: "User"
+  },
 });
 
-const User = mongoose.model('users', userSchema)
+const User = mongoose.model("users", userSchema);
 
 export default User;
