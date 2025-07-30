@@ -24,7 +24,7 @@ db.once("open", function () {
   console.log("DB Connected");
 });
 
-app.use("/api", router);
+app.use("/", router);
 
 export const handler = serverless(app);
 export default app;
