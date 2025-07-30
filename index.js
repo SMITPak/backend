@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import router from "./Routes/index.js";
 import mongoose from "./DB/index.js";
+import serverless from "serverless-http";
 
 const app = express();
 
@@ -25,6 +26,5 @@ db.once("open", function () {
 
 app.use("/api", router);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on ${PORT}`);
-});
+export const handler = serverless(app);
+export default app;
