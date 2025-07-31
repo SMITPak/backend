@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import router from "./Routes/index.js";
 import mongoose from "./DB/index.js";
-import serverless from "serverless-http";
 import dotenv from "dotenv";
 
 const app = express();
@@ -15,16 +14,7 @@ app.use(express.json());
 
 app.use("/images", express.static("images/"));
 
-app.use(cors({
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else{
-            callback(new Error("Not allowed by cors"));
-        }
-    },
-    credentials: true
-}))
+app.use(cors({ origin: '*', credentials: true }));
 
 const db = mongoose.connection;
 
