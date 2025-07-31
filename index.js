@@ -29,5 +29,6 @@ db.once("open", function () {
 
 app.use("/api", router);
 
-export const handler = serverless(app);
-export default app;
+app.listen(PORT, () => {
+    console.log(`Server is running on Port ${PORT}`);
+});
